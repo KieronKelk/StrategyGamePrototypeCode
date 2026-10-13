@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://66n1ni21wces"]
+
+[ext_resource type="Script" uid="uid://djn4prwlwj8nv" path="res://Script/PlayerUnits/friendly_unit_spawning.gd" id="1_r4raw"]
+[ext_resource type="Script" uid="uid://c1cipvi2jwghp" path="res://Script/PlayerUnits/button_unit_to_spawn.gd" id="2_trw78"]
+
+[node name="InGameUI" type="Control" unique_id=1028829947]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_r4raw")
+metadata/_edit_use_anchors_ = true
+
+[node name="SmallUnitSpawner" type="Button" parent="." unique_id=962654408 node_paths=PackedStringArray("in_game_ui", "number_to_spawn_text")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.49382716
+anchor_right = 0.0069444445
+anchor_bottom = 0.50617284
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 67.0
+offset_bottom = 72.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Small Unit"
+script = ExtResource("2_trw78")
+in_game_ui = NodePath("..")
+number_to_spawn = 2
+number_to_spawn_text = NodePath("testUnitAmountLabel")
+enemy_spawn_path = "res://Scene/AssetScenes/Player/small_player_unit.tscn"
+metadata/_edit_use_anchors_ = true
+
+[node name="testUnitAmountLabel" type="Label" parent="SmallUnitSpawner" unique_id=1585455924]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "1"
+horizontal_alignment = 1
+
+[node name="MediumUnitSpawner" type="Button" parent="." unique_id=1555622152 node_paths=PackedStringArray("in_game_ui", "number_to_spawn_text")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.49382716
+anchor_right = 0.0069444445
+anchor_bottom = 0.50617284
+offset_left = 10.0
+offset_top = -45.0
+offset_right = 67.0
+offset_bottom = -3.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Medium Unit"
+script = ExtResource("2_trw78")
+unit_type = 1
+in_game_ui = NodePath("..")
+number_to_spawn = 2
+number_to_spawn_text = NodePath("testUnitAmountLabel")
+enemy_spawn_path = "res://Scene/AssetScenes/Player/medium_player_unit.tscn"
+metadata/_edit_use_anchors_ = true
+
+[node name="testUnitAmountLabel" type="Label" parent="MediumUnitSpawner" unique_id=1474498566]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "1"
+horizontal_alignment = 1
+
+[node name="LargeUnitSpawner" type="Button" parent="." unique_id=422189686 node_paths=PackedStringArray("in_game_ui", "number_to_spawn_text")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.49382716
+anchor_right = 0.0069444445
+anchor_bottom = 0.50617284
+offset_left = 10.0
+offset_top = -120.0
+offset_right = 67.0
+offset_bottom = -78.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Large Unit"
+script = ExtResource("2_trw78")
+unit_type = 2
+in_game_ui = NodePath("..")
+number_to_spawn = 2
+number_to_spawn_text = NodePath("testUnitAmountLabel")
+enemy_spawn_path = "res://Scene/AssetScenes/Player/large_player_unit.tscn"
+metadata/_edit_use_anchors_ = true
+
+[node name="testUnitAmountLabel" type="Label" parent="LargeUnitSpawner" unique_id=1270950831]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "1"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="SmallUnitSpawner" to="SmallUnitSpawner" method="_on_pressed"]
+[connection signal="pressed" from="MediumUnitSpawner" to="MediumUnitSpawner" method="_on_pressed"]
+[connection signal="pressed" from="LargeUnitSpawner" to="LargeUnitSpawner" method="_on_pressed"]

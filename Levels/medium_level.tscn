@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://wbny03cfjnbx"]
+
+[ext_resource type="Script" uid="uid://bfs2qsk8dmtbl" path="res://Script/Manager/level_manager.gd" id="1_qcovc"]
+[ext_resource type="PackedScene" uid="uid://dmtiqkog24ldv" path="res://Scene/AssetScenes/map.tscn" id="2_wkscq"]
+[ext_resource type="Script" uid="uid://clhkn1vw1soya" path="res://Script/PlayerCamera/player_camera.gd" id="3_c2u7m"]
+[ext_resource type="PackedScene" uid="uid://66n1ni21wces" path="res://UI/in_game_ui.tscn" id="4_h0d05"]
+[ext_resource type="PackedScene" uid="uid://djowm0cqnri6w" path="res://Scene/AssetScenes/Enemy/small_enemy_ship.tscn" id="5_bigjl"]
+[ext_resource type="PackedScene" uid="uid://cy58i85dqjkgu" path="res://Scene/AssetScenes/Enemy/medium_enemy_ship.tscn" id="6_scdno"]
+
+[node name="EasyLevel" type="Node3D" unique_id=2094970107]
+script = ExtResource("1_qcovc")
+
+[node name="map" parent="." unique_id=1476608521 groups=["Map"] instance=ExtResource("2_wkscq")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=644990893]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.068, 18.5, 1.798)
+script = ExtResource("3_c2u7m")
+move_speed = 10.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=775298716]
+transform = Transform3D(1, 0, 0, 0, 0.5715027, 0.8206002, 0, -0.8206002, 0.5715027, 0, 25.268583, 19.213955)
+
+[node name="InGameUI" parent="." unique_id=1028829947 instance=ExtResource("4_h0d05")]
+
+[node name="test_enemy_unit_V2" parent="." unique_id=1430440308 instance=ExtResource("5_bigjl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 16.66838, 4, -3.3377028)
+
+[node name="test_enemy_unit_V3" parent="." unique_id=1422342310 instance=ExtResource("5_bigjl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 16.66838, 4, 3.1039486)
+
+[node name="test_enemy_unit_V5" parent="." unique_id=102202862 instance=ExtResource("5_bigjl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.887987, 4, -3.3377028)
+
+[node name="test_enemy_unit_V6" parent="." unique_id=858339241 instance=ExtResource("5_bigjl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.887987, 4, 3.1039486)
+
+[node name="test_enemy_unit_V4" parent="." unique_id=1741532456 instance=ExtResource("6_scdno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.679121, 4, -0.83251095)
+
+[node name="test_enemy_unit_V7" parent="." unique_id=1854336972 instance=ExtResource("6_scdno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31385612, 4, -19.36425)
+
+[node name="test_enemy_unit_V8" parent="." unique_id=1219224807 instance=ExtResource("6_scdno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31385612, 4, 17.259571)

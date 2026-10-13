@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://ottx3jupjaoa"]
+
+[ext_resource type="Script" uid="uid://b523ype6k3bej" path="res://Script/MainMenu/button_play_game.gd" id="1_p8ccj"]
+[ext_resource type="Script" uid="uid://bcb0l6kx5h0ca" path="res://Script/MainMenu/button_quit.gd" id="2_tk8dj"]
+
+[node name="MainMenu" type="Control" unique_id=2104401976]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=902578178]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel" unique_id=1751543075]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer" unique_id=50866635]
+layout_mode = 2
+
+[node name="ButtonEasy" type="Button" parent="Panel/CenterContainer/VBoxContainer" unique_id=761183154]
+layout_mode = 2
+text = "Easy"
+script = ExtResource("1_p8ccj")
+level_load_path = "res://Scene/Levels/easy_level.tscn"
+
+[node name="ButtonNormal" type="Button" parent="Panel/CenterContainer/VBoxContainer" unique_id=260620434]
+layout_mode = 2
+text = "Normal"
+script = ExtResource("1_p8ccj")
+level_type = 1
+level_load_path = "res://Scene/Levels/medium_level.tscn"
+
+[node name="ButtonHard" type="Button" parent="Panel/CenterContainer/VBoxContainer" unique_id=1166830626]
+layout_mode = 2
+text = "Hard"
+script = ExtResource("1_p8ccj")
+level_type = 2
+level_load_path = "res://Scene/Levels/hard_level.tscn"
+
+[node name="ButtonQuit" type="Button" parent="Panel/CenterContainer/VBoxContainer" unique_id=478090900]
+layout_mode = 2
+text = "Quit
+"
+script = ExtResource("2_tk8dj")
+
+[connection signal="pressed" from="Panel/CenterContainer/VBoxContainer/ButtonEasy" to="Panel/CenterContainer/VBoxContainer/ButtonEasy" method="_button_pressed"]
+[connection signal="pressed" from="Panel/CenterContainer/VBoxContainer/ButtonNormal" to="Panel/CenterContainer/VBoxContainer/ButtonNormal" method="_button_pressed"]
+[connection signal="pressed" from="Panel/CenterContainer/VBoxContainer/ButtonHard" to="Panel/CenterContainer/VBoxContainer/ButtonHard" method="_button_pressed"]
+[connection signal="pressed" from="Panel/CenterContainer/VBoxContainer/ButtonQuit" to="Panel/CenterContainer/VBoxContainer/ButtonQuit" method="_on_pressed"]

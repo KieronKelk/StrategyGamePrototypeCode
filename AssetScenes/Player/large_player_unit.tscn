@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://sbi8rxi7mips"]
+
+[ext_resource type="Script" uid="uid://doi51p8ul17dx" path="res://Script/PlayerUnits/friendly_unit_behaviour.gd" id="1_igurt"]
+[ext_resource type="Script" uid="uid://cdmkc3tyyxbx3" path="res://Script/PlayerUnits/unit_movement.gd" id="2_tl854"]
+[ext_resource type="Script" uid="uid://bbns7qwnbrn0u" path="res://Script/SharedBetweenUnitTypes/unit_stats.gd" id="3_kbuuc"]
+[ext_resource type="Script" uid="uid://dgwprnfs6fpy6" path="res://Script/SharedBetweenUnitTypes/unit_shoot.gd" id="4_m681s"]
+[ext_resource type="StyleBox" uid="uid://b45yd2ci20csf" path="res://Styles/hp_bar_color.tres" id="5_dvb40"]
+[ext_resource type="StyleBox" uid="uid://brjkj4pxuiv1x" path="res://Styles/crew_bar_color.tres" id="6_7fpvb"]
+[ext_resource type="Texture2D" uid="uid://5mrhlf6yrgd3" path="res://Assets/UIAssets/friendlyUnitUI.png" id="7_mvqd4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3uaq0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3h02d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjxpg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3uaq0"]
+viewport_path = NodePath("UnitStatBar/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3h02d"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 0.56078434)
+
+[node name="test_player_unit_V2" type="CharacterBody3D" unique_id=1225184507 node_paths=PackedStringArray("root_node", "is_clicked_sprite") groups=["Friendly"]]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+script = ExtResource("1_igurt")
+root_node = NodePath(".")
+is_clicked_sprite = NodePath("IsClickedSprite")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=868848402]
+shape = SubResource("BoxShape3D_3uaq0")
+
+[node name="unitMovement" type="Node" parent="." unique_id=1844471669 node_paths=PackedStringArray("moveable_object")]
+script = ExtResource("2_tl854")
+movement_speed = 115.0
+moveable_object = NodePath("..")
+
+[node name="player_stats" type="Node" parent="." unique_id=1875103608 node_paths=PackedStringArray("unit", "hp_bar", "crew_bar")]
+script = ExtResource("3_kbuuc")
+unit = NodePath("..")
+base_hp = 320.0
+base_crew_amount = 550.0
+base_crew_regen_delay = 0.45
+crew_regen_rate = 1.05
+death_delay = 0.05
+hp_bar = NodePath("../UnitStatBar/SubViewport/HPBar")
+crew_bar = NodePath("../UnitStatBar/SubViewport/CrewBar")
+
+[node name="AutoTargetArea" type="Area3D" parent="." unique_id=2111408928 node_paths=PackedStringArray("root_node")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+input_ray_pickable = false
+script = ExtResource("4_m681s")
+unit_damage = 50.0
+unit_crew_damage = 65.0
+base_shot_delay = 0.5
+root_node = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AutoTargetArea" unique_id=1026797616]
+shape = SubResource("SphereShape3D_3h02d")
+
+[node name="UnitMesh" type="MeshInstance3D" parent="." unique_id=832400952]
+mesh = SubResource("BoxMesh_wjxpg")
+
+[node name="UnitStatBar" type="Sprite3D" parent="." unique_id=2140983888]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.085, -1.044)
+billboard = 1
+texture = SubResource("ViewportTexture_3uaq0")
+
+[node name="SubViewport" type="SubViewport" parent="UnitStatBar" unique_id=446626527]
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="HPBar" type="ProgressBar" parent="UnitStatBar/SubViewport" unique_id=1206542554]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/background = SubResource("StyleBoxFlat_3h02d")
+theme_override_styles/fill = ExtResource("5_dvb40")
+step = 1.0
+value = 50.0
+
+[node name="CrewBar" type="ProgressBar" parent="UnitStatBar/SubViewport" unique_id=313575358]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 150)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/background = SubResource("StyleBoxFlat_3h02d")
+theme_override_styles/fill = ExtResource("6_7fpvb")
+step = 1.0
+value = 50.0
+
+[node name="IsClickedSprite" type="Sprite3D" parent="." unique_id=1323514844]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, -1, 0)
+modulate = Color(1, 1, 1, 0.49019608)
+texture = ExtResource("7_mvqd4")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="body_entered" from="AutoTargetArea" to="AutoTargetArea" method="_unit_enters_area"]
+[connection signal="body_exited" from="AutoTargetArea" to="AutoTargetArea" method="_unit_leaves_area"]

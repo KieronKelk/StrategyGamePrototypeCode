@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://by125bawiuu3y"]
+
+[ext_resource type="Script" uid="uid://dv2o7e4ws7a2r" path="res://Script/EnemyUnits/enemy_clicked_unit.gd" id="1_nb6ms"]
+[ext_resource type="Script" uid="uid://bbns7qwnbrn0u" path="res://Script/SharedBetweenUnitTypes/unit_stats.gd" id="2_ms2st"]
+[ext_resource type="Script" uid="uid://dgwprnfs6fpy6" path="res://Script/SharedBetweenUnitTypes/unit_shoot.gd" id="3_tu0bp"]
+[ext_resource type="Script" uid="uid://bkcsgft0visuj" path="res://Script/EnemyUnits/enemy_movement.gd" id="4_pbrrv"]
+[ext_resource type="StyleBox" uid="uid://b45yd2ci20csf" path="res://Styles/hp_bar_color.tres" id="5_j0qcj"]
+[ext_resource type="StyleBox" uid="uid://brjkj4pxuiv1x" path="res://Styles/crew_bar_color.tres" id="6_ua8oy"]
+[ext_resource type="Texture2D" uid="uid://blcf46brc5goq" path="res://Assets/UIAssets/enemyUnitUI.png" id="7_cakwc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_th1xi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_67ymb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_tut6d"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wjxpg"]
+viewport_path = NodePath("UnitUI/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67ymb"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 0.56078434)
+
+[node name="test_enemy_unit_V2" type="CharacterBody3D" unique_id=1430440308 node_paths=PackedStringArray("root_node", "is_clicked_sprite") groups=["Enemy"]]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+script = ExtResource("1_nb6ms")
+root_node = NodePath(".")
+is_clicked_sprite = NodePath("IsClickedSprite")
+base_click_show_time = 0.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1294693379]
+shape = SubResource("BoxShape3D_th1xi")
+
+[node name="enemy_stats" type="Node" parent="." unique_id=516438035 node_paths=PackedStringArray("unit", "hp_bar", "crew_bar")]
+script = ExtResource("2_ms2st")
+unit = NodePath("..")
+base_hp = 300.0
+base_crew_amount = 500.0
+base_crew_regen_delay = 0.45
+crew_regen_rate = 1.05
+death_delay = 0.05
+hp_bar = NodePath("../UnitUI/SubViewport/HPBar")
+crew_bar = NodePath("../UnitUI/SubViewport/CrewBar")
+
+[node name="AutoTargetArea" type="Area3D" parent="." unique_id=166236531 node_paths=PackedStringArray("root_node")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+input_ray_pickable = false
+script = ExtResource("3_tu0bp")
+unit_allegiance = 1
+unit_damage = 50.0
+unit_crew_damage = 65.0
+base_shot_delay = 0.5
+root_node = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AutoTargetArea" unique_id=47245843]
+shape = SubResource("SphereShape3D_67ymb")
+
+[node name="enemyMovementArea" type="Area3D" parent="." unique_id=2080656919 node_paths=PackedStringArray("root_node", "enemy_target_area")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+input_ray_pickable = false
+script = ExtResource("4_pbrrv")
+root_node = NodePath("..")
+movement_speed = 100.0
+enemy_target_area = NodePath("../AutoTargetArea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="enemyMovementArea" unique_id=780088955]
+shape = SubResource("SphereShape3D_67ymb")
+
+[node name="UnitMesh" type="MeshInstance3D" parent="." unique_id=70168354]
+mesh = SubResource("SphereMesh_tut6d")
+
+[node name="UnitUI" type="Sprite3D" parent="." unique_id=2063776544]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -7.8588724e-05, 1.0850878, -1.0436018)
+billboard = 1
+texture = SubResource("ViewportTexture_wjxpg")
+
+[node name="SubViewport" type="SubViewport" parent="UnitUI" unique_id=1627682634]
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="HPBar" type="ProgressBar" parent="UnitUI/SubViewport" unique_id=300157497]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/background = SubResource("StyleBoxFlat_67ymb")
+theme_override_styles/fill = ExtResource("5_j0qcj")
+step = 1.0
+value = 50.0
+
+[node name="CrewBar" type="ProgressBar" parent="UnitUI/SubViewport" unique_id=1115854670]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 150)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/background = SubResource("StyleBoxFlat_67ymb")
+theme_override_styles/fill = ExtResource("6_ua8oy")
+step = 1.0
+value = 50.0
+
+[node name="IsClickedSprite" type="Sprite3D" parent="." unique_id=400460908]
+transform = Transform3D(0.4374455, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, -1, 0)
+texture = ExtResource("7_cakwc")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="body_entered" from="AutoTargetArea" to="AutoTargetArea" method="_unit_enters_area"]
+[connection signal="body_exited" from="AutoTargetArea" to="AutoTargetArea" method="_unit_leaves_area"]
+[connection signal="body_entered" from="enemyMovementArea" to="enemyMovementArea" method="_on_body_entered"]
+[connection signal="body_exited" from="enemyMovementArea" to="enemyMovementArea" method="_on_body_exited"]

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cslxje801n8l6"]
+
+[ext_resource type="Script" uid="uid://cdsneq0ph2im4" path="res://Script/SharedBetweenUnitTypes/bullet_behaviour.gd" id="1_13hyp"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wjxpg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d5k1r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wjxpg"]
+
+[node name="Bullet" type="CharacterBody3D" unique_id=961571052]
+transform = Transform3D(0.031655256, -0.99949884, -1.3836972e-09, -4.371139e-08, 1.9106855e-15, -1, 0.99949884, 0.031655256, -4.3689482e-08, 0, 0, 0)
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_13hyp")
+movement_speed = 100.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=738531848]
+mesh = SubResource("CapsuleMesh_wjxpg")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1460599385]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1136520337]
+shape = SubResource("CapsuleShape3D_d5k1r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1311589823]
+shape = SubResource("CapsuleShape3D_wjxpg")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dmtiqkog24ldv"]
+
+[ext_resource type="Script" uid="uid://deeuqqj6prm7" path="res://Script/map_clicked.gd" id="1_7ap1n"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjxpg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rv1jw"]
+albedo_color = Color(0.05490196, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wjxpg"]
+
+[node name="map" type="MeshInstance3D" unique_id=1476608521]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_wjxpg")
+surface_material_override/0 = SubResource("StandardMaterial3D_rv1jw")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=826726156]
+gravity_scale = 0.0
+script = ExtResource("1_7ap1n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1134121584]
+shape = SubResource("BoxShape3D_wjxpg")
+
+[connection signal="input_event" from="RigidBody3D" to="RigidBody3D" method="_on_input_event"]
